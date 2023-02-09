@@ -1,44 +1,20 @@
 <script>
 	import ErrorBlock from './ErrorBlock.svelte';
-	import { store } from '../stores';
-
-	let data = null;
-	let isValid = null;
-	let errorMsg = '';
-
-	function registerData() {
-		try {
-			validateReference();
-			errorMsg = '';
-			store.reference = data;
-		} catch (e) {
-			errorMsg = e.message;
-			isValid = false;
-		}
-	}
-
-	function validateReference() {
-		if (data === '') {
-			isValid = null;
-			return true;
-		}
-
-		let reference = String(data);
-		isValid = true;
-		return true;
-	}
+	import { referenceStore } from '../stores';
 </script>
 
 <div class="grid">
 	<div>
 		<input
-			on:change={registerData}
-			bind:value={data}
-			aria-invalid={isValid !== null ? !isValid : ''}
+			on:change={(age) => referenceStore.setReference(age)}
+			value={$referenceStore.value}
+			aria-invalid={$referenceStore.valid !== null ? !$referenceStore.valid : ''}
 			type="text"
-			placeholder="Reference ID"
+			id="value"
+			name="value"
+			placeholder="optional reference ID"
 		/>
-		<ErrorBlock message={errorMsg} />
+		<ErrorBlock message={$referenceStore.error} />
 	</div>
 	<div />
 </div>

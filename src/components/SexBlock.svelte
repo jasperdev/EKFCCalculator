@@ -1,12 +1,5 @@
 <script>
-	import { store } from '../stores';
-
-	let sex = 'M';
-	updateSex(sex);
-
-	function updateSex(sex) {
-		store.sex = sex;
-	}
+	import { sexStore } from '../stores';
 </script>
 
 <div class="grid" style="margin-bottom: var(--spacing);">
@@ -14,20 +7,18 @@
 		<a
 			href="#/"
 			on:click={() => {
-				sex = 'M';
-				updateSex(sex);
+				sexStore.setSextoM();
 			}}
-			class={sex === 'M' ? '' : 'outline'}
+			class={$sexStore === 'M' ? '' : 'outline'}
 			role="button"
 			>male
 		</a>
 		<a
 			href="#/"
 			on:click={() => {
-				sex = 'F';
-				updateSex(sex);
+				sexStore.setSextoF();
 			}}
-			class={sex === 'M' ? 'outline' : ''}
+			class={$sexStore === 'M' ? 'outline' : ''}
 			role="button"
 			>female
 		</a>
