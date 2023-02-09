@@ -1,0 +1,15 @@
+:root {
+	--primary: #d8af1b;
+	--form-element-spacing-vertical: 0.25rem;
+	--spacing: 0.5rem;
+}
+
+h2 {
+	font-size: 1rem;
+	font-weight: normal;
+}
+
+h3 {
+	--font-size: 0.75rem;
+	--typography-spacing-vertical: 2.25rem;
+}
