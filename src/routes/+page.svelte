@@ -2,35 +2,7 @@
 	import AgeBlock from '../components/AgeBlock.svelte';
 	import BiomarkerBlock from '../components/BiomarkerBlock.svelte';
 	import ReferenceBlock from '../components/ReferenceBlock.svelte';
-	import { onMount } from 'svelte';
-	import Chart from 'chart.js/auto';
-
-	onMount(async () => {
-		const ctx = document.getElementById('chart');
-
-		// @ts-ignore
-		const chart = new Chart(ctx, {
-			type: 'bar',
-			data: {
-				labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-				datasets: [
-					{
-						label: 'Example Data',
-						data: [12, 19, 3, 5, 2, 3]
-					}
-				]
-			},
-			options: {
-				responsive: true,
-				plugins: {
-					tooltip: {
-						enabled: false // <-- this option disables tooltips
-					}
-				},
-				animation: false
-			}
-		});
-	});
+	import Chart from '../components/Chart.svelte';
 </script>
 
 <div class="container" id="/">
@@ -57,11 +29,8 @@
 			</form>
 			<div>
 				<h3>Result</h3>
-				<canvas id="chart" />
+				<Chart />
 			</div>
 		</div>
 	</article>
 </div>
-
-<style>
-</style>
