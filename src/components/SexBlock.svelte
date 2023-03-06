@@ -23,7 +23,6 @@
 			>female
 		</a>
 	</div>
-	<div />
 </div>
 
 <style>
@@ -35,8 +34,8 @@
 	.box > a {
 		flex: 1;
 		-ms-flex: 1;
-		margin-right: var(--spacing);
-		margin-bottom: var(--spacing);
+		margin-right: var(--form-element-spacing-vertical);
+		margin-bottom: var(--form-element-spacing-vertical);
 	}
 
 	.box > :last-child {

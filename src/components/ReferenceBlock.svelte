@@ -16,5 +16,4 @@
 		/>
 		<ErrorBlock message={$referenceStore.error} />
 	</div>
-	<div />
 </div>

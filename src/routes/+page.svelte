@@ -1,46 +1,67 @@
 <script>
 	import AgeBlock from '../components/AgeBlock.svelte';
-	import CreatinineBlock from '../components/CreatinineBlock.svelte';
-	import CystatinBlock from '../components/CystatinBlock.svelte';
+	import BiomarkerBlock from '../components/BiomarkerBlock.svelte';
 	import ReferenceBlock from '../components/ReferenceBlock.svelte';
-	import SexBlock from '../components/SexBlock.svelte';
+	import { onMount } from 'svelte';
+	import Chart from 'chart.js/auto';
 
-	import { ageStore } from '../stores';
-	function calculate() {
-		alert($ageStore);
-	}
+	onMount(async () => {
+		const ctx = document.getElementById('chart');
+
+		// @ts-ignore
+		const chart = new Chart(ctx, {
+			type: 'bar',
+			data: {
+				labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+				datasets: [
+					{
+						label: 'Example Data',
+						data: [12, 19, 3, 5, 2, 3]
+					}
+				]
+			},
+			options: {
+				responsive: true,
+				plugins: {
+					tooltip: {
+						enabled: false // <-- this option disables tooltips
+					}
+				},
+				animation: false
+			}
+		});
+	});
 </script>
 
-<div class="container">
+<div class="container" id="/">
 	<article>
 		<!-- HEADER BLOCK -->
 		<header>
 			<h1 style="margin: 0;">EKFC eGFR calculator</h1>
 			<h2>This web app provides a reference implementation for the EKFC equations</h2>
 		</header>
-		<form>
-			<h3>Age</h3>
-			<AgeBlock />
-			<hr />
-			<h3>Sex</h3>
-			<SexBlock />
-			<hr />
-			<h3>Serum creatinine</h3>
-			<CreatinineBlock />
-			<hr />
-			<h3>Cystatin C</h3>
-			<CystatinBlock />
-			<hr />
-			<h3>Reference ID (optional)</h3>
-			<ReferenceBlock />
-			<hr />
-			<button on:click={calculate}>Calculate</button>
-		</form>
+
+		<div class="grid">
+			<form>
+				<h3>Input values</h3>
+				<h4>Age</h4>
+				<AgeBlock />
+				<hr />
+				<h4>Biomarkers</h4>
+				<BiomarkerBlock />
+				<hr />
+				<h4>Reference ID (optional)</h4>
+				<ReferenceBlock />
+				<hr />
+				<button>Calculate</button>
+			</form>
+			<div>
+				<h3>Result</h3>
+				<canvas id="chart" />
+			</div>
+		</div>
 	</article>
 </div>
 
 <style>
-	h3 {
-		margin-bottom: 0.5em;
-	}
 </style>
