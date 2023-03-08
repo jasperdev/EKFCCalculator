@@ -1,7 +1,7 @@
 <script>
 	import Chart from 'chart.js/auto';
-	import { EGFRStoreCreatinine, EGFRStoreCystatin, EGFRStoreMean } from '../stores';
 	import { onMount } from 'svelte';
+	import { EGFRStoreCreatinine, EGFRStoreCystatin, EGFRStoreMean, ageStore } from '../stores';
 
 	let dataTop = [];
 	let dataBottom = [];
@@ -25,6 +25,7 @@
 		label: '97.5ᵗʰ  Pct',
 		data: dataTop,
 		borderColor: '#000',
+		backgroundColor: '#fff',
 		tension: 0,
 		pointRadius: 0,
 		borderDash: [10, 7.5],
@@ -36,6 +37,7 @@
 		label: '50ᵗʰ  Pct',
 		data: dataMean,
 		borderColor: '#000',
+		backgroundColor: '#fff',
 		pointRadius: 0,
 		borderWidth: 2
 	};
@@ -45,17 +47,70 @@
 		label: '2.5ᵗʰ  Pct',
 		data: dataBottom,
 		borderColor: '#000',
+		backgroundColor: '#fff',
 		pointRadius: 0,
 		borderDash: [5, 7.5],
-		borderWidth: 2
+		borderWidth: 2,
 	};
+
+	const datasetEGFRCystatin = {
+		type: 'bubble',
+		label: 'EGFR Cystatin C',
+		data: [
+			{
+				x: $ageStore.value,
+				y: $EGFRStoreCystatin,
+				r: 5
+			}
+		],
+		backgroundColor: '#1E88E5'
+	};
+
+	const datasetEGFRCreatinine = {
+		type: 'bubble',
+		label: 'EGFR Creatinine',
+		data: [
+			{
+				x: $ageStore.value,
+				y: $EGFRStoreCreatinine,
+				r: 5
+			}
+		],
+		backgroundColor: '#D81B60'
+	};
+
+	const datasetEGFRMean = {
+		type: 'bubble',
+		label: 'EGFR Mean',
+		data: [
+			{
+				x: $ageStore.value,
+				y: $EGFRStoreMean,
+				r: 5
+			}
+		],
+		backgroundColor: '#FFC107'
+	};
+
+	let datasets = [];
+	datasets.push(datasetTop, datasetMean, datasetBottom)
+
+	if ($EGFRStoreCystatin !== null && $EGFRStoreCreatinine !== null) {
+		datasets.push(datasetEGFRCystatin, datasetEGFRCreatinine, datasetEGFRMean);
+	}
+	else if ($EGFRStoreCystatin !== null) {
+		datasets.push(datasetEGFRCystatin);
+	}
+	else if ($EGFRStoreCreatinine !== null) {
+		datasets.push(datasetEGFRCreatinine);
+	}
 
 	// Only register the chart when the component is mounted
 	onMount(async () => {
 		const ctx = document.getElementById('chart');
 		const data = {
 			labels: years,
-			datasets: [datasetTop, datasetMean, datasetBottom]
+			datasets: datasets
 		};
 
 		const config = {
@@ -84,11 +139,11 @@
 					}
 				},
 				plugins: {
-					legend: {
-						labels: {
-							boxHeight: 0
-						}
-					}
+					// legend: {
+					// 	labels: {
+					// 		boxHeight: 0
+					// 	}
+					// }
 				}
 			},
 			data: data
@@ -99,18 +154,4 @@
 	});
 </script>
 
-{#if $EGFRStoreCreatinine}
-	<div>EGFR (creatinine): {$EGFRStoreCreatinine}</div>
-{/if}
-
-{#if $EGFRStoreCystatin}
-	<div>EGFR (cystatin C): {$EGFRStoreCystatin}</div>
-{/if}
-
-{#if $EGFRStoreMean}
-	<div>EGFR (mean): {$EGFRStoreMean}</div>
-{/if}
-
-<div style="position: relative; height:100%; width:100%">
-	<canvas id="chart" />
-</div>
+<canvas width="100" height="66" id="chart" />

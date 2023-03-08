@@ -6,6 +6,10 @@ import { writable, derived } from 'svelte/store';
 function createAgeStore() {
 	const { subscribe, set } = writable({ value: null, valid: null, error: '' });
 
+	function clear() {
+		set({ value: null, valid: null, error: '' });
+	}
+
 	function setAge(e) {
 		let input = e.target.value;
 
@@ -40,7 +44,8 @@ function createAgeStore() {
 
 	return {
 		subscribe,
-		setAge: setAge
+		setAge: setAge,
+		clear: clear
 	};
 }
 
@@ -51,6 +56,10 @@ export const ageStore = createAgeStore();
 //
 function createReferenceStore() {
 	const { subscribe, set } = writable({ value: null, valid: null, error: '' });
+
+	function clear() {
+		set({ value: null, valid: null, error: '' });
+	}
 
 	function setReference(e) {
 		let input = e.target.value;
@@ -81,7 +90,8 @@ function createReferenceStore() {
 
 	return {
 		subscribe,
-		setReference: setReference
+		setReference: setReference,
+		clear: clear
 	};
 }
 
@@ -130,6 +140,10 @@ export const biomarkerStore = createBiomarkerStore();
 function createCystatinStore() {
 	const { subscribe, set } = writable({ value: null, valid: null, error: '' });
 
+	function clear() {
+		set({ value: null, valid: null, error: '' });
+	}
+
 	function setCystatinC(e) {
 		let input = e.target.value;
 
@@ -168,7 +182,8 @@ function createCystatinStore() {
 
 	return {
 		subscribe,
-		setCystatinC: setCystatinC
+		setCystatinC: setCystatinC,
+		clear: clear
 	};
 }
 
@@ -179,6 +194,11 @@ export const cystatinStore = createCystatinStore();
 //
 function createCreatinineStore() {
 	const { subscribe, set } = writable({ value: null, valid: null, error: '' });
+
+	function clear() {
+		set({ value: null, valid: null, error: '' });
+	}
+
 
 	function setCreatinineMiligram(e) {
 		setCreatinine(e, false);
@@ -232,7 +252,8 @@ function createCreatinineStore() {
 	return {
 		subscribe,
 		setCreatinineMiligram: setCreatinineMiligram,
-		setCreatinineMicroMol: setCreatinineMicroMol
+		setCreatinineMicroMol: setCreatinineMicroMol,
+		clear: clear
 	};
 }
 

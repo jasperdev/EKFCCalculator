@@ -1,5 +1,5 @@
 <script>
-	import { biomarkerStore, Biomarkers } from '../stores';
+	import { biomarkerStore, Biomarkers, creatinineStore, cystatinStore } from '../stores';
 	import CreatinineBlock from './CreatinineBlock.svelte';
 	import CystatinBlock from './CystatinBlock.svelte';
 	import SexBlock from './SexBlock.svelte';
@@ -10,6 +10,7 @@
 		href="#/"
 		on:click={() => {
 			biomarkerStore.setToCystatinC();
+			creatinineStore.clear();
 		}}
 		class={$biomarkerStore !== Biomarkers.cystatinc ? 'outline' : ''}
 		role="button"
@@ -19,6 +20,7 @@
 		href="#/"
 		on:click={() => {
 			biomarkerStore.setToCreatinine();
+			cystatinStore.clear();
 		}}
 		class={$biomarkerStore !== Biomarkers.creatinine ? 'outline' : ''}
 		role="button"

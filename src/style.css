@@ -11,7 +11,6 @@ h2 {
 }
 
 h3 {
-
 }
 
 h4 {
@@ -19,3 +18,17 @@ h4 {
 	--typography-spacing-vertical: 2.25rem;
 	margin-bottom: 0.5em;
 }
+
+@media print {
+	body * {
+	  visibility: hidden;
+	}
+	#results, #results * {
+	  visibility: visible;
+	}
+	#results {
+	  position: absolute;
+	  left: 0;
+	  top: 0;
+	}
+  }

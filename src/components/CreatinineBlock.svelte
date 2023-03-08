@@ -23,7 +23,6 @@
 				id="value"
 				name="value"
 				placeholder={ismgDL ? 'creatinine in mg/dL' : 'creatinine in µmol/L'}
-				required
 			/>
 		{/key}
 		<ErrorBlock message={$creatinineStore.error} />
