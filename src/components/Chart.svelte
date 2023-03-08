@@ -1,5 +1,6 @@
 <script>
 	import Chart from 'chart.js/auto';
+	import { EGFRStoreCreatinine, EGFRStoreCystatin, EGFRStoreMean } from '../stores';
 	import { onMount } from 'svelte';
 
 	let dataTop = [];
@@ -97,6 +98,18 @@
 		const chart = new Chart(ctx, config);
 	});
 </script>
+
+{#if $EGFRStoreCreatinine}
+	<div>EGFR (creatinine): {$EGFRStoreCreatinine}</div>
+{/if}
+
+{#if $EGFRStoreCystatin}
+	<div>EGFR (cystatin C): {$EGFRStoreCystatin}</div>
+{/if}
+
+{#if $EGFRStoreMean}
+	<div>EGFR (mean): {$EGFRStoreMean}</div>
+{/if}
 
 <div style="position: relative; height:100%; width:100%">
 	<canvas id="chart" />

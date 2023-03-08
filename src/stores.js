@@ -255,3 +255,101 @@ export const creatinineStoreMicroMol = derived(creatinineStore, ($creatinineStor
 		return Math.round($creatinineStore.value * 88.4 * 100) / 100;
 	}
 });
+
+// Store where the EGFR based on creatinine is calculated
+export const EGFRStoreCreatinine = derived(
+	[creatinineStoreMicroMol, ageStore, sexStore],
+	(stores) => {
+		let [creatinineStoreMicroMol, ageStore, sexStore] = stores;
+		let value = null;
+
+		if (!creatinineStoreMicroMol || !ageStore.valid) {
+			return null;
+		}
+
+		let age = ageStore.value;
+		let SCr = creatinineStoreMicroMol;
+
+		// Calculate the Q-value
+		let Q = 0;
+		if (age <= 25 && sexStore == 'M') {
+			let lnQ =
+				3.2 +
+				0.259 * age -
+				0.543 * Math.log(age) -
+				0.00763 * Math.pow(age, 2) +
+				0.000079 * Math.pow(age, 3);
+			Q = Math.exp(lnQ);
+		} else if (age <= 25 && sexStore == 'F') {
+			let lnQ =
+				3.08 +
+				0.177 * age -
+				0.223 * Math.log(age) -
+				0.00596 * Math.pow(age, 2) +
+				0.0000686 * Math.pow(age, 3);
+			Q = Math.exp(lnQ);
+		} else if (age > 25 && sexStore == 'M') {
+			Q = 80;
+		} else if (age > 25 && sexStore == 'F') {
+			Q = 62;
+		}
+
+		// Calculate the eGFR value
+		if (age <= 40 && SCr / Q < 1) {
+			value = 107.3 * Math.pow(SCr / Q, -0.322);
+		} else if (age <= 40 && SCr / Q >= 1) {
+			value = 107.3 * Math.pow(SCr / Q, -1.132);
+		} else if (age > 40 && SCr / Q < 1) {
+			value = 107.3 * Math.pow(SCr / Q, -0.322) * Math.pow(0.99, age - 40);
+		} else if (age > 40 && SCr / Q >= 1) {
+			value = 107.3 * Math.pow(SCr / Q, -1.132) * Math.pow(0.99, age - 40);
+		}
+
+		return Math.round(value * 10) / 10;
+	}
+);
+
+// Store where the EGFR based on cystatin C is calculated
+export const EGFRStoreCystatin = derived([cystatinStore, ageStore], (stores) => {
+	let [cystatinStore, ageStore] = stores;
+	let value = null;
+
+	if (!cystatinStore.valid || !ageStore.valid) {
+		return null;
+	}
+
+	let age = ageStore.value;
+	let SC = cystatinStore.value;
+
+	// Calculate the Q-value
+	let Q = 0;
+	if (age <= 50) {
+		Q = 0.83;
+	} else {
+		Q = 0.83 + 0.005 * (age - 50);
+	}
+
+	// Calculate the eGFR value
+	if (age <= 40 && SC / Q < 1) {
+		value = 107.3 * Math.pow(SC / Q, -0.322);
+	} else if (age <= 40 && SC / Q >= 1) {
+		value = 107.3 * Math.pow(SC / Q, -1.132);
+	} else if (age > 40 && SC / Q < 1) {
+		value = 107.3 * Math.pow(SC / Q, -0.322) * Math.pow(0.99, age - 40);
+	} else if (age > 40 && SC / Q >= 1) {
+		value = 107.3 * Math.pow(SC / Q, -1.132) * Math.pow(0.99, age - 40);
+	}
+
+	return Math.round(value * 10) / 10;
+});
+
+// Store for the mean EGFR
+export const EGFRStoreMean = derived([EGFRStoreCreatinine, EGFRStoreCystatin], (stores) => {
+	let [EGFRStoreCreatinine, EGFRStoreCystatin] = stores;
+	if (!EGFRStoreCreatinine || !EGFRStoreCystatin) {
+		return null;
+	}
+
+	let value = (EGFRStoreCreatinine + EGFRStoreCystatin) / 2;
+	return Math.round(value * 10) / 10;
+});

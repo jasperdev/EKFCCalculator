@@ -36,7 +36,7 @@
 			}}
 			class={ismgDL ? '' : 'outline'}
 			role="button"
-			>mg/L
+			>mg/dL
 		</a>
 		<a
 			href="#/"
@@ -57,6 +57,6 @@
 
 	#input {
 		flex: 1;
-		margin-right: var(--form-element-spacing-vertical)
+		margin-right: var(--form-element-spacing-vertical);
 	}
 </style>
