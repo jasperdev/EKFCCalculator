@@ -193,12 +193,16 @@ export const cystatinStore = createCystatinStore();
 // Creatinine STORE (mg/L)
 //
 function createCreatinineStore() {
-	const { subscribe, set } = writable({ value: null, valid: null, error: '' });
+	const { subscribe, set, update } = writable({
+		value: null,
+		isMicromol: false,
+		valid: null,
+		error: ''
+	});
 
 	function clear() {
-		set({ value: null, valid: null, error: '' });
+		set({ value: null, isMicromol: false, valid: null, error: '' });
 	}
-
 
 	function setCreatinineMiligram(e) {
 		setCreatinine(e, false);
@@ -213,7 +217,7 @@ function createCreatinineStore() {
 
 		// reset state if empty
 		if (input === '') {
-			let newState = { value: null, valid: null, error: '' };
+			let newState = { value: null, isMicromol: isMicromol, valid: null, error: '' };
 			set(newState);
 			return;
 		}
@@ -221,7 +225,12 @@ function createCreatinineStore() {
 		// convert input to number and check if it is a valid number
 		let creatinine = parseFloat(input);
 		if (isNaN(creatinine)) {
-			let newState = { value: input, valid: false, error: 'Value is not a number' };
+			let newState = {
+				value: input,
+				isMicromol: isMicromol,
+				valid: false,
+				error: 'Value is not a number'
+			};
 			set(newState);
 			return;
 		}
@@ -236,6 +245,7 @@ function createCreatinineStore() {
 		if (!(creatinine >= 0.1 && creatinine <= 2)) {
 			let newState = {
 				value: creatinine,
+				isMicromol: isMicromol,
 				valid: false,
 				error: 'Value is out of range [0.1,2.0] mg/l'
 			};
@@ -244,7 +254,7 @@ function createCreatinineStore() {
 		}
 
 		// if al OK, set creatinine
-		let newState = { value: creatinine, valid: true, error: '' };
+		let newState = { value: creatinine, isMicromol: isMicromol, valid: true, error: '' };
 		set(newState);
 		return;
 	}
@@ -253,6 +263,16 @@ function createCreatinineStore() {
 		subscribe,
 		setCreatinineMiligram: setCreatinineMiligram,
 		setCreatinineMicroMol: setCreatinineMicroMol,
+		setUnitToMicroMol: () =>
+			update((state) => {
+				state.isMicromol = true;
+				return state;
+			}),
+		setUnitToMiligram: () =>
+			update((state) => {
+				state.isMicromol = false;
+				return state;
+			}),
 		clear: clear
 	};
 }
@@ -374,3 +394,16 @@ export const EGFRStoreMean = derived([EGFRStoreCreatinine, EGFRStoreCystatin], (
 	let value = (EGFRStoreCreatinine + EGFRStoreCystatin) / 2;
 	return Math.round(value * 10) / 10;
 });
+
+// Show result store
+function createShowResultStore() {
+	const { subscribe, set } = writable(false);
+
+	return {
+		subscribe,
+		show: () => set(true),
+		dontShow: () => set(false)
+	};
+}
+
+export const showResultStore = createShowResultStore();

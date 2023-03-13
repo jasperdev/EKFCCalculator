@@ -50,7 +50,7 @@
 		backgroundColor: '#fff',
 		pointRadius: 0,
 		borderDash: [5, 7.5],
-		borderWidth: 2,
+		borderWidth: 2
 	};
 
 	const datasetEGFRCystatin = {
@@ -93,15 +93,13 @@
 	};
 
 	let datasets = [];
-	datasets.push(datasetTop, datasetMean, datasetBottom)
+	datasets.push(datasetTop, datasetMean, datasetBottom);
 
 	if ($EGFRStoreCystatin !== null && $EGFRStoreCreatinine !== null) {
 		datasets.push(datasetEGFRCystatin, datasetEGFRCreatinine, datasetEGFRMean);
-	}
-	else if ($EGFRStoreCystatin !== null) {
+	} else if ($EGFRStoreCystatin !== null) {
 		datasets.push(datasetEGFRCystatin);
-	}
-	else if ($EGFRStoreCreatinine !== null) {
+	} else if ($EGFRStoreCreatinine !== null) {
 		datasets.push(datasetEGFRCreatinine);
 	}
 
@@ -155,3 +153,9 @@
 </script>
 
 <canvas width="100" height="66" id="chart" />
+
+<style>
+	canvas {
+		margin-bottom: 0.5em;
+	}
+</style>

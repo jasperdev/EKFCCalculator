@@ -20,9 +20,9 @@
 				id="value"
 				name="value"
 				placeholder="age in years"
+				required
 			/>
 		{/key}
 		<ErrorBlock message={$ageStore.error} />
 	</div>
-
 </div>

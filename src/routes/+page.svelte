@@ -1,7 +1,7 @@
 <script>
 	import AgeBlock from '../components/AgeBlock.svelte';
 	import BiomarkerBlock from '../components/BiomarkerBlock.svelte';
-	import ClearBock from '../components/ClearBock.svelte';
+	import ClearCalcBock from '../components/ClearCalcBock.svelte';
 	import ReferenceBlock from '../components/ReferenceBlock.svelte';
 	import ResultBlock from '../components/ResultBlock.svelte';
 </script>
@@ -26,12 +26,12 @@
 				<h4>Reference ID (optional)</h4>
 				<ReferenceBlock />
 				<hr />
-				<ClearBock/>
+				<ClearCalcBock />
 				<!-- <button>Calculate</button> -->
 			</form>
 			<div>
 				<h3>Result</h3>
-				<ResultBlock/>
+				<ResultBlock />
 			</div>
 		</div>
 	</article>

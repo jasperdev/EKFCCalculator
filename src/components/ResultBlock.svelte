@@ -7,15 +7,18 @@
 		ageStore,
 		cystatinStore,
 		creatinineStore,
+		creatinineStoreMicroMol,
+		creatinineStoreMiligram,
 		sexStore,
-		referenceStore
+		referenceStore,
+		showResultStore
 	} from '../stores';
 </script>
 
 <!-- check if there are results available -->
-{#if $EGFRStoreCreatinine === null && $EGFRStoreCystatin === null}
-	<p>Please fill in all required fields to show the result</p>
-{:else}
+{#if ($EGFRStoreCreatinine === null && $EGFRStoreCystatin === null) || $showResultStore === false}
+	<p>Please fill in all required fields and press <em>Calculate</em> to show the result.</p>
+{:else if $showResultStore}
 	<div id="results" style="width:100%">
 		<table>
 			<tbody>
@@ -26,22 +29,27 @@
 				</tr>
 				{#if $ageStore.valid}
 					<tr>
-						<td>Age</td>
+						<td>Age (years)</td>
 						<td>{$ageStore.value}</td>
 					</tr>
 				{/if}
 
 				{#if $cystatinStore.valid}
 					<tr>
-						<td>Cystatin C</td>
+						<td>Cystatin C (mg/L)</td>
 						<td>{$cystatinStore.value}</td>
 					</tr>
 				{/if}
 
 				{#if $creatinineStore.valid}
 					<tr>
-						<td>Creatinine</td>
-						<td>{$cystatinStore.value}</td>
+						{#if $creatinineStore.isMicromol}
+							<td>Creatinine (µmol/L)</td>
+							<td>{$creatinineStoreMicroMol} </td>
+						{:else}
+							<td>Creatinine (mg/dL)</td>
+							<td>{$creatinineStoreMiligram} </td>
+						{/if}
 					</tr>
 				{/if}
 
@@ -61,7 +69,7 @@
 
 				<tr>
 					<th scope="rowgroup" colspan="2">
-						<b>EKFC</b>
+						<b>EKFC (mL/min/1.73m²)</b>
 					</th>
 				</tr>
 				{#if $EGFRStoreCystatin}

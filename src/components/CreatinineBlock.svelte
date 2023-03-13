@@ -1,7 +1,6 @@
 <script>
 	import ErrorBlock from './ErrorBlock.svelte';
 	import { creatinineStore, creatinineStoreMicroMol, creatinineStoreMiligram } from '../stores';
-	let ismgDL = true;
 
 	// rerender on updating value
 	let changeToggle = true;
@@ -12,17 +11,18 @@
 		{#key changeToggle}
 			<input
 				on:change={(c) => {
-					ismgDL
-						? creatinineStore.setCreatinineMiligram(c)
-						: creatinineStore.setCreatinineMicroMol(c);
+					$creatinineStore.isMicromol
+						? creatinineStore.setCreatinineMicroMol(c)
+						: creatinineStore.setCreatinineMiligram(c);
 					changeToggle = !changeToggle;
 				}}
-				value={ismgDL ? $creatinineStoreMiligram : $creatinineStoreMicroMol}
+				value={$creatinineStore.isMicromol ? $creatinineStoreMicroMol : $creatinineStoreMiligram}
 				aria-invalid={$creatinineStore.valid !== null ? !$creatinineStore.valid : ''}
 				type="text"
 				id="value"
 				name="value"
-				placeholder={ismgDL ? 'creatinine in mg/dL' : 'creatinine in µmol/L'}
+				placeholder={$creatinineStore.isMicromol ? 'creatinine in µmol/L' : 'creatinine in mg/dL'}
+				required
 			/>
 		{/key}
 		<ErrorBlock message={$creatinineStore.error} />
@@ -31,18 +31,18 @@
 		<a
 			href="#/"
 			on:click={() => {
-				ismgDL = true;
+				creatinineStore.setUnitToMiligram();
 			}}
-			class={ismgDL ? '' : 'outline'}
+			class={$creatinineStore.isMicromol ? 'outline' : ''}
 			role="button"
 			>mg/dL
 		</a>
 		<a
 			href="#/"
 			on:click={() => {
-				ismgDL = false;
+				creatinineStore.setUnitToMicroMol();
 			}}
-			class={ismgDL ? 'outline' : ''}
+			class={$creatinineStore.isMicromol ? '' : 'outline'}
 			role="button"
 			>µmol/L
 		</a>

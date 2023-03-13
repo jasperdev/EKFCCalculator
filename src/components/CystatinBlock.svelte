@@ -20,6 +20,7 @@
 				id="value"
 				name="value"
 				placeholder="cystatin C in mg/L"
+				required
 			/>
 		{/key}
 		<ErrorBlock message={$cystatinStore.error} />

@@ -1,17 +1,18 @@
-:root {
-	--primary: #d8af1b;
+[data-theme="light"],
+:root:not([data-theme="dark"]) {
+	--primary: #546e7a;
+	--primary-hover: #6c8b99;
 	--form-element-spacing-vertical: 0.25rem;
 	--spacing: 1rem;
 	--grid-spacing-horizontal: 5rem;
 }
+
 
 h2 {
 	font-size: 1rem;
 	font-weight: normal;
 }
 
-h3 {
-}
 
 h4 {
 	--font-size: 0.75rem;
@@ -32,3 +33,5 @@ h4 {
 	  top: 0;
 	}
   }
+
+ 
