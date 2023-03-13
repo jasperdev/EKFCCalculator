@@ -4,13 +4,26 @@
 	--primary-hover: #6c8b99;
 	--form-element-spacing-vertical: 0.25rem;
 	--spacing: 1rem;
+	--block-spacing-vertical: 1.5rem;
 	--grid-spacing-horizontal: 5rem;
 }
 
+article>header {
+	margin-bottom: 1rem;
+}
+
+hr{
+	margin-top: 0;
+}
+
+h1,h3,h4,h5,h6{
+	--typography-spacing-vertical: 1rem;
+}
 
 h2 {
 	font-size: 1rem;
 	font-weight: normal;
+	--typography-spacing-vertical: 0rem;
 }
 
 
@@ -34,4 +47,3 @@ h4 {
 	}
   }
 
- 

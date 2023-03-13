@@ -19,7 +19,7 @@
 				type="text"
 				id="value"
 				name="value"
-				placeholder="cystatin C in mg/L"
+				placeholder="cystatin C"
 				required
 			/>
 		{/key}

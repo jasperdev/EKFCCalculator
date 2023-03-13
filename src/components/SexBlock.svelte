@@ -4,24 +4,22 @@
 
 <div class="grid" style="margin-bottom: var(--spacing);">
 	<div class="box">
-		<a
-			href="#/"
+		<button
+			type="button"
 			on:click={() => {
 				sexStore.setSextoM();
 			}}
 			class={$sexStore === 'M' ? '' : 'outline'}
-			role="button"
 			>male
-		</a>
-		<a
-			href="#/"
+		</button>
+		<button
+			type="button"
 			on:click={() => {
 				sexStore.setSextoF();
 			}}
 			class={$sexStore === 'M' ? 'outline' : ''}
-			role="button"
 			>female
-		</a>
+		</button>
 	</div>
 </div>
 
@@ -31,7 +29,7 @@
 		display: flex;
 		flex-wrap: wrap;
 	}
-	.box > a {
+	.box > button {
 		flex: 1;
 		-ms-flex: 1;
 		margin-right: var(--form-element-spacing-vertical);

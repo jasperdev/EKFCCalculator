@@ -21,7 +21,7 @@
 				type="text"
 				id="value"
 				name="value"
-				placeholder={$creatinineStore.isMicromol ? 'creatinine in µmol/L' : 'creatinine in mg/dL'}
+				placeholder='creatinine'
 				required
 			/>
 		{/key}

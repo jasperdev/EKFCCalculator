@@ -12,7 +12,7 @@
 			type="text"
 			id="value"
 			name="value"
-			placeholder="optional reference ID"
+			placeholder="reference ID"
 		/>
 		<ErrorBlock message={$referenceStore.error} />
 	</div>

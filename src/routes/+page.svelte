@@ -17,6 +17,7 @@
 		<div class="grid">
 			<form>
 				<h3>Input values</h3>
+				<hr/>
 				<h4>Age</h4>
 				<AgeBlock />
 				<hr />

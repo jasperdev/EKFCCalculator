@@ -6,35 +6,32 @@
 </script>
 
 <div class="box">
-	<a
-		href="#/"
+	<button
+		type="button"
 		on:click={() => {
 			biomarkerStore.setToCystatinC();
 			creatinineStore.clear();
 		}}
 		class={$biomarkerStore !== Biomarkers.cystatinc ? 'outline' : ''}
-		role="button"
 		>cystatin C
-	</a>
-	<a
-		href="#/"
+	</button>
+	<button
+		type="button"
 		on:click={() => {
 			biomarkerStore.setToCreatinine();
 			cystatinStore.clear();
 		}}
 		class={$biomarkerStore !== Biomarkers.creatinine ? 'outline' : ''}
-		role="button"
 		>creatinine
-	</a>
-	<a
-		href="#/"
+	</button>
+	<button
+		type="button"
 		on:click={() => {
 			biomarkerStore.setToBoth();
 		}}
 		class={$biomarkerStore !== Biomarkers.both ? 'outline' : ''}
-		role="button"
 		>both
-	</a>
+	</button>
 </div>
 <div />
 
@@ -61,8 +58,9 @@
 		display: flex;
 		flex-wrap: wrap;
 	}
-	.box > a {
-		flex-grow: 1;
+	.box > button {
+		flex: 1;
+		-ms-flex: 1;
 		margin-right: var(--form-element-spacing-vertical);
 		margin-bottom: var(--spacing);
 	}
