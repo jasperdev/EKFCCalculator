@@ -99,10 +99,12 @@
 			<Chart />
 		{/key}
 	</div>
-
-	<button
-		on:click={() => {
-			window.print();
-		}}>Print results</button
-	>
+	<div id="buttonContainer">
+		<button
+			id="printButton"
+			on:click={() => {
+				window.print();
+			}}>Print results</button
+		>
+	</div>
 {/if}

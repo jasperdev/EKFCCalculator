@@ -21,7 +21,7 @@ function createAgeStore() {
 		}
 
 		// convert input to number and check if it is a valid number
-		let age = parseInt(input);
+		let age = parseFloat(input);
 
 		if (isNaN(age)) {
 			let newState = { value: input, valid: false, error: 'Value is not a number' };
@@ -30,13 +30,14 @@ function createAgeStore() {
 		}
 
 		// check if the value is sane
-		if (!(age >= 2 && age <= 120)) {
-			let newState = { value: age, valid: false, error: 'Value is out of range [2,120]' };
+		if (!(age >= 2 && age <= 100)) {
+			let newState = { value: age, valid: false, error: 'Value is out of range [2,100]' };
 			set(newState);
 			return;
 		}
 
 		// if al OK, set age
+		age = Math.round(age*10)/10;
 		let newState = { value: age, valid: true, error: '' };
 		set(newState);
 		return;
@@ -122,7 +123,7 @@ export const Biomarkers = {
 };
 
 function createBiomarkerStore() {
-	const { subscribe, set } = writable(Biomarkers.cystatinc);
+	const { subscribe, set } = writable(Biomarkers.creatinine);
 
 	return {
 		subscribe,
@@ -163,11 +164,11 @@ function createCystatinStore() {
 		}
 
 		// check if the value is sane
-		if (!(Cystatin >= 0.1 && Cystatin <= 2)) {
+		if (!(Cystatin >= 0.01 && Cystatin <= 20)) {
 			let newState = {
 				value: Cystatin,
 				valid: false,
-				error: 'Value is out of range [0.1,2.0] mg/L'
+				error: 'Value is out of range [0.01,20.0] mg/L'
 			};
 			set(newState);
 			return;
@@ -242,12 +243,12 @@ function createCreatinineStore() {
 		}
 
 		// check if the value is sane
-		if (!(creatinine >= 0.1 && creatinine <= 2)) {
+		if (!(creatinine >= 0.01 && creatinine <= 20)) {
 			let newState = {
 				value: creatinine,
 				isMicromol: isMicromol,
 				valid: false,
-				error: 'Value is out of range [0.1,2.0] mg/l'
+				error: 'Value is out of range [0.01,20.0] mg/l'
 			};
 			set(newState);
 			return;

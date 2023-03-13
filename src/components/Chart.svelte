@@ -9,7 +9,7 @@
 	let years = [];
 
 	// Generate the data for the reference curves.
-	for (let year = 2; year <= 120; year++) {
+	for (let year = 2; year <= 100; year++) {
 		let mean = 107.3 * (year > 40 ? Math.pow(0.99, year - 40) : 1);
 		let bottom = mean / 1.33;
 		let top = mean + (mean - bottom);
@@ -22,6 +22,7 @@
 
 	const datasetTop = {
 		type: 'line',
+		pointStyle: 'dash',
 		label: '97.5ᵗʰ  Pct',
 		data: dataTop,
 		borderColor: '#000',
@@ -34,16 +35,18 @@
 
 	const datasetMean = {
 		type: 'line',
+		pointStyle: 'line',
 		label: '50ᵗʰ  Pct',
 		data: dataMean,
 		borderColor: '#000',
 		backgroundColor: '#fff',
 		pointRadius: 0,
-		borderWidth: 2
+		borderWidth: 3
 	};
 
 	const datasetBottom = {
 		type: 'line',
+		pointStyle: 'dash',
 		label: '2.5ᵗʰ  Pct',
 		data: dataBottom,
 		borderColor: '#000',
@@ -56,27 +59,31 @@
 	const datasetEGFRCystatin = {
 		type: 'bubble',
 		label: 'EGFR Cystatin C',
+		pointStyle: 'triangle',
 		data: [
 			{
 				x: $ageStore.value,
 				y: $EGFRStoreCystatin,
-				r: 5
+				r: 7
 			}
 		],
-		backgroundColor: '#1E88E5'
+		// backgroundColor: '#1E88E5'
+		backgroundColor: 'rgba(30, 136, 229, 1)'
 	};
 
 	const datasetEGFRCreatinine = {
 		type: 'bubble',
 		label: 'EGFR Creatinine',
+		pointStyle: 'rect',
 		data: [
 			{
 				x: $ageStore.value,
 				y: $EGFRStoreCreatinine,
-				r: 5
+				r: 6
 			}
 		],
-		backgroundColor: '#D81B60'
+		// backgroundColor: '#D81B60'
+		backgroundColor: 'rgba(216, 27, 96, 1)'
 	};
 
 	const datasetEGFRMean = {
@@ -86,10 +93,11 @@
 			{
 				x: $ageStore.value,
 				y: $EGFRStoreMean,
-				r: 5
+				r: 6
 			}
 		],
-		backgroundColor: '#FFC107'
+		// backgroundColor: '#FFC107'
+		backgroundColor: 'rgba(255, 193, 7, 1)'
 	};
 
 	let datasets = [];
@@ -116,13 +124,12 @@
 				animation: false,
 				scales: {
 					x: {
+						bounds: 'ticks',
 						title: {
 							display: true,
 							text: 'Age'
 						},
 						type: 'linear',
-						max: 120,
-						min: 2,
 						ticks: {
 							stepSize: 10
 						}
@@ -137,11 +144,15 @@
 					}
 				},
 				plugins: {
-					// legend: {
-					// 	labels: {
-					// 		boxHeight: 0
-					// 	}
-					// }
+					legend: {
+						display: true,
+						position: 'bottom',
+						align: 'center',
+
+						labels: {
+							usePointStyle: true
+						}
+					}
 				}
 			},
 			data: data

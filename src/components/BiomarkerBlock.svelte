@@ -9,20 +9,20 @@
 	<button
 		type="button"
 		on:click={() => {
-			biomarkerStore.setToCystatinC();
-			creatinineStore.clear();
-		}}
-		class={$biomarkerStore !== Biomarkers.cystatinc ? 'outline' : ''}
-		>cystatin C
-	</button>
-	<button
-		type="button"
-		on:click={() => {
 			biomarkerStore.setToCreatinine();
 			cystatinStore.clear();
 		}}
 		class={$biomarkerStore !== Biomarkers.creatinine ? 'outline' : ''}
 		>creatinine
+	</button>
+	<button
+		type="button"
+		on:click={() => {
+			biomarkerStore.setToCystatinC();
+			creatinineStore.clear();
+		}}
+		class={$biomarkerStore !== Biomarkers.cystatinc ? 'outline' : ''}
+		>cystatin C
 	</button>
 	<button
 		type="button"
