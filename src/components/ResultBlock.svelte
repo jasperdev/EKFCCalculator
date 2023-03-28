@@ -1,4 +1,5 @@
 <script>
+	import { onMount } from 'svelte';
 	import Chart from '../components/Chart.svelte';
 	import {
 		EGFRStoreCreatinine,
@@ -15,10 +16,11 @@
 	} from '../stores';
 </script>
 
-<!-- check if there are results available -->
-{#if ($EGFRStoreCreatinine === null && $EGFRStoreCystatin === null) || $showResultStore === false}
-	<p>Please fill in all required fields and press <em>Calculate</em> to show the result.</p>
-{:else if $showResultStore}
+
+	<!-- check if there are results available -->
+	{#if ($EGFRStoreCreatinine === null && $EGFRStoreCystatin === null) || $showResultStore === false}
+		<p>Please fill in all required fields and press <em>Calculate</em> to show the result.</p>
+	{:else if $showResultStore}
 	<div id="results" style="width:100%">
 		<table>
 			<tbody>
@@ -62,7 +64,7 @@
 
 				{#if $referenceStore.valid}
 					<tr>
-						<td>Reference</td>
+						<td>Patient ID</td>
 						<td>{$referenceStore.value}</td>
 					</tr>
 				{/if}
@@ -74,14 +76,14 @@
 				</tr>
 				{#if $EGFRStoreCystatin}
 					<tr>
-						<td>Cystatin C</td>
+						<td>Cystatin C based</td>
 						<td>{$EGFRStoreCystatin}</td>
 					</tr>
 				{/if}
 
 				{#if $EGFRStoreCreatinine}
 					<tr>
-						<td>Creatinine</td>
+						<td>Creatinine based</td>
 						<td>{$EGFRStoreCreatinine}</td>
 					</tr>
 				{/if}
@@ -99,12 +101,12 @@
 			<Chart />
 		{/key}
 	</div>
-	<div id="buttonContainer">
-		<button
-			id="printButton"
-			on:click={() => {
-				window.print();
-			}}>Print results</button
-		>
-	</div>
-{/if}
+		<div id="buttonContainer">
+			<button
+				id="printButton"
+				on:click={() => {
+					window.print();
+				}}>Print results</button
+			>
+		</div>
+	{/if}

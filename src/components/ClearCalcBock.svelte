@@ -4,7 +4,9 @@
 		creatinineStore,
 		cystatinStore,
 		referenceStore,
-		showResultStore
+		showResultStore,
+		EGFRStoreCreatinine,
+		EGFRStoreCystatin
 	} from '../stores';
 
 	function clearStores() {
@@ -26,7 +28,9 @@
 	</button>
 	<button
 		on:click={() => {
-			showResultStore.show();
+			if($EGFRStoreCreatinine !== null || $EGFRStoreCystatin !== null){
+				showResultStore.show();
+			}
 		}}
 		class="contrast"
 		type="submit"

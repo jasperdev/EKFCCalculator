@@ -1,5 +1,5 @@
 <script>
-	import { sexStore } from '../stores';
+	import { sexStore, showResultStore } from '../stores';
 </script>
 
 <div class="grid" style="margin-bottom: var(--spacing);">
@@ -8,6 +8,7 @@
 			type="button"
 			on:click={() => {
 				sexStore.setSextoM();
+				showResultStore.dontShow();
 			}}
 			class={$sexStore === 'M' ? '' : 'outline'}
 			>male

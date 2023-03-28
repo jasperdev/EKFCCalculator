@@ -1,6 +1,6 @@
 <script>
 	import ErrorBlock from './ErrorBlock.svelte';
-	import { creatinineStore, creatinineStoreMicroMol, creatinineStoreMiligram } from '../stores';
+	import { creatinineStore, creatinineStoreMicroMol, creatinineStoreMiligram, showResultStore } from '../stores';
 
 	// rerender on updating value
 	let changeToggle = true;
@@ -15,10 +15,12 @@
 						? creatinineStore.setCreatinineMicroMol(c)
 						: creatinineStore.setCreatinineMiligram(c);
 					changeToggle = !changeToggle;
+					showResultStore.dontShow();
 				}}
 				value={$creatinineStore.isMicromol ? $creatinineStoreMicroMol : $creatinineStoreMiligram}
 				aria-invalid={$creatinineStore.valid !== null ? !$creatinineStore.valid : ''}
-				type="text"
+				type="number"
+				step="0.01"
 				id="value"
 				name="value"
 				placeholder='creatinine'

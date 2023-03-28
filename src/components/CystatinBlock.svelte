@@ -1,6 +1,6 @@
 <script>
 	import ErrorBlock from './ErrorBlock.svelte';
-	import { cystatinStore } from '../stores';
+	import { cystatinStore, showResultStore } from '../stores';
 
 	// rerender on updating value
 	let changeToggle = true;
@@ -13,10 +13,12 @@
 				on:change={(cystatin) => {
 					cystatinStore.setCystatinC(cystatin);
 					changeToggle = !changeToggle;
+					showResultStore.dontShow();
 				}}
 				value={$cystatinStore.value}
 				aria-invalid={$cystatinStore.valid !== null ? !$cystatinStore.valid : ''}
-				type="text"
+				type="number"
+				step="0.01"
 				id="value"
 				name="value"
 				placeholder="cystatin C"

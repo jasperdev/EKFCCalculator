@@ -176,7 +176,6 @@ function createCystatinStore() {
 
 		// if al OK, set Cystatin
 		let newState = { value: Math.round(Cystatin * 100) / 100, valid: true, error: '' };
-		console.log(newState.value);
 		set(newState);
 		return;
 	}

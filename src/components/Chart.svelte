@@ -58,7 +58,7 @@
 
 	const datasetEGFRCystatin = {
 		type: 'bubble',
-		label: 'EGFR Cystatin C',
+		label: 'Cystatin C',
 		pointStyle: 'triangle',
 		data: [
 			{
@@ -73,7 +73,7 @@
 
 	const datasetEGFRCreatinine = {
 		type: 'bubble',
-		label: 'EGFR Creatinine',
+		label: 'Creatinine',
 		pointStyle: 'rect',
 		data: [
 			{
@@ -88,7 +88,7 @@
 
 	const datasetEGFRMean = {
 		type: 'bubble',
-		label: 'EGFR Mean',
+		label: 'Mean',
 		data: [
 			{
 				x: $ageStore.value,
@@ -139,7 +139,7 @@
 						min: 0,
 						title: {
 							display: true,
-							text: 'eGFR (mL/min/1.73m²)'
+							text: 'EKFC (mL/min/1.73m²)'
 						}
 					}
 				},

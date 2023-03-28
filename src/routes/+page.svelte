@@ -4,6 +4,7 @@
 	import ClearCalcBock from '../components/ClearCalcBock.svelte';
 	import ReferenceBlock from '../components/ReferenceBlock.svelte';
 	import ResultBlock from '../components/ResultBlock.svelte';
+	import { showResultStore } from '../stores';
 </script>
 
 <div class="container" id="/">
@@ -15,7 +16,7 @@
 		</header>
 
 		<div class="grid">
-			<form>
+			<form action="#results">
 				<h3>Input values</h3>
 				<hr/>
 				<h4>Age</h4>
@@ -24,15 +25,16 @@
 				<h4>Biomarkers</h4>
 				<BiomarkerBlock />
 				<hr />
-				<h4>Reference ID (optional)</h4>
+				<h4>Patient ID (optional)</h4>
 				<ReferenceBlock />
 				<hr />
 				<ClearCalcBock />
-				<!-- <button>Calculate</button> -->
 			</form>
 			<div>
-				<h3>Result</h3>
+				<h3 id="results">Result</h3>		
+				{#key $showResultStore}
 				<ResultBlock />
+				{/key}
 			</div>
 		</div>
 	</article>

@@ -1,5 +1,5 @@
 <script>
-	import { ageStore } from '../stores';
+	import { ageStore, showResultStore } from '../stores';
 	import ErrorBlock from './ErrorBlock.svelte';
 
 	// rerender on updating value
@@ -13,10 +13,14 @@
 				on:change={(age) => {
 					ageStore.setAge(age);
 					changeToggle = !changeToggle;
+					showResultStore.dontShow();
 				}}
 				value={$ageStore.value}
 				aria-invalid={$ageStore.valid !== null ? !$ageStore.valid : ''}
-				type="text"
+				type="number"
+				min="2"
+				max="100"
+				step="0.1"
 				id="value"
 				name="value"
 				placeholder="age in years"
